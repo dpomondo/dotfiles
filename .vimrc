@@ -1,0 +1,572 @@
+" Here be some things I tweaked to makes mah vim be more
+" Likes what I want and not what it is normally
+" -----------------------------------------------------------------------------
+"
+" Vi is old and weak. Vim is strong. The strong need not respect the weak. The
+" strong need not sympathize with the weak. The strong should eat the heart of
+" the weak. But certainly the strong shouldn't be COMPATIBLE with the weak. Nope.
+set nocompatible
+"
+" -----------------------------------------------------------------------------
+" BEGIN the VUNDLE-ING                                                      {{{
+" --------------------------------------------------------------------------{{{
+" required!
+filetype off
+" Better check to make sure vundle exists:
+if !isdirectory(expand('~/.vim/bundle/Vundle.vim', 1))
+    silent !git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+endif
+
+set rtp+=~/.vim/bundle/Vundle.vim " set the runtime path to include Vundle
+call vundle#begin()
+" }}}
+"
+" *****************************************************************************
+" *    The bundles you install will be listed here                            *
+" *****************************************************************************
+"
+" -----------------------------------------------------------------------------
+" let Vundle manage Vundle
+" --------------------------------------------------------------------------{{{
+Plugin 'gmarik/Vundle.vim'
+" }}}
+"
+" -----------------------------------------------------------------------------
+" Buffers! Buffers! Moar BUffers! And a buffer just for yanking!
+" --------------------------------------------------------------------------{{{
+Plugin 'jeetsukumaran/vim-buffergator'
+"
+" something something sets buffergator size
+let g:buffergator_split_size=30
+" These got wonky so they get set back to normal by brute force
+nnoremap [b :BuffergatorMruCyclePrev<CR>
+nnoremap ]b :BuffergatorMruCycleNext<CR>
+"
+" Access to yank buffers
+Plugin 'vim-scripts/YankRing.vim'
+nnoremap <silent> <F10> :YRShow<CR>
+                                        " opens yankRing in a new window
+let g:yankring_min_element_length=2     " no more singletons in the yankring
+let g:yankring_manage_numbered_reg=1    " yank registers & yankring are the same
+let g:yankring_history_dir='$HOME/.vim/,$VIM,$HOME'
+" }}}
+"
+" -----------------------------------------------------------------------------
+"  Colors! Colors! MOar Colors!
+" --------------------------------------------------------------------------{{{
+" Note: I don't think this bundle actually works. If solarized is working
+" its because I manually linked it into the ~/.vim/colors directory
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'jaapie/vim-colours-dusk'
+Plugin 'nanotech/jellybeans.vim'
+Plugin 'morhetz/gruvbox'
+Plugin 'junegunn/seoul256.vim'
+" }}}
+"
+" -----------------------------------------------------------------------------
+" Statusline
+" --------------------------------------------------------------------------{{{
+" So, `rtp' is short for `run-time path' or some such. It be where the vim
+" looks for things, I guess.
+" The following is the magic whasit that makes the powerline thing
+" actually show up. Craaaaaaazy man, crazy.
+" set rtp+=/Users/caseyopdahl/.vim/bundle/powerline/powerline/bindings/vim
+" Plugin 'Lokaltog/powerline'
+"
+" Powerline randomly breaks, airline seems to work fine, so that's what we're
+" going with!
+Plugin 'bling/vim-airline'
+let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#show_buffers=0
+let g:airline#extensions#tabline#show_tabs=0
+"
+" Here is where a custom statusline would live, if I had the patience to learn
+" how to make custom statuslines:
+"
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+" unicode symbols
+" let g:airline_left_sep = '▶'
+" let g:airline_right_sep = '◀'
+" let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+
+let g:airline#extensions#tabline#left_sep = '>'
+let g:airline#extensions#tabline#left_alt_sep = '>'
+let g:airline_theme='luna'
+" <This space intentionally left blank/>
+"
+set laststatus=2        " reserve second-to-last line for statusline
+" set statusline=0      " uncomment (and comment out above)to kill the statusline
+" }}}
+"
+" -----------------------------------------------------------------------------
+" Tab Completion!
+" --------------------------------------------------------------------------{{{
+" Swapping supertab for YouCompleteMe so I can be like the cool kids
+" Plugin 'Valloric/YouCompleteMe'
+" Going back to supertab 'cos it is less crazy
+Plugin 'ervandew/supertab'
+" }}}
+"
+" -----------------------------------------------------------------------------
+" NERDCommenter!
+" --------------------------------------------------------------------------{{{
+Plugin 'scrooloose/nerdcommenter'
+let g:NERDSpaceDelims = 1   " put a space between a comment character and text
+" }}}
+"
+" -----------------------------------------------------------------------------
+"  Unite does some things... or so I hear
+" --------------------------------------------------------------------------{{{
+Plugin 'Shougo/unite.vim'
+" }}}
+"
+" -----------------------------------------------------------------------------
+" Files and Directories!
+" --------------------------------------------------------------------------{{{
+"
+" IMPORTANT! we have killed the NERDTree --------------------------------------
+" Plugin 'scrooloose/nerdtree'
+"
+" 'ChDirMode' changes when the CWD gets changed in response to choices in the
+" NERDTree whatsit. Turned 'on' becuase hey why the hell not.
+" let g:NERDTreeWinPos = "right"
+" let g:NERDTreeChDirMode = 2
+" let g:NERDTreeWinSize = 30
+" let g:NERDTreeSortOrder = ['\/$', '\.tar\.gz$', '\.gz$', '\.pdf$', '\.py$', '\.txt$', '*', '\~$']
+" autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" Here be NEDTree keybinds. There are other keybinds some other damn place.
+" First lets me toggle NERDTree on and off. Because. The second shrinks the
+" current window just in case it gets all big and weird.
+" nnoremap <F6> :NERDTreeToggle
+" noremap <S-F6> " somethingsomething to resize a vertical split
+" ABOVE this line is the NERDTree stuff if it comes back ----------------------
+"
+" While NERDTree is great, I just feel like trying something new
+Plugin 'Shougo/vimfiler.vim'
+"
+:let g:vimfiler_as_default_explorer = 1
+:let g:loaded_netrw       = 1       " Disable netrw.vim
+:let g:loaded_netrwPlugin = 1
+nnoremap <F6> :VimFiler -toggle -force-quit<CR>
+nnoremap <S-F6> :VimFilerExplorer -toggle <CR>
+"
+" uncomment to auto-open an explorer pane
+" autocmd VimEnter * VimFilerExplorer
+" uncomment to auto-open a VimFiler Explorer pane if vim is started without
+" specified files:
+" autocmd VimEnter * if !argc() | VimFiler | endif
+" }}}
+"
+" -----------------------------------------------------------------------------
+" Gundo and undo
+" --------------------------------------------------------------------------{{{
+Plugin 'sjl/gundo.vim'
+" compiled with python3 but not python 2 requires this or gundo breaks:
+let g:gundo_prefer_python3 = 1
+" This is where th <F5> becomes the Gundo key. And remember:
+" Gundo always shot first.
+nnoremap <F5> :GundoToggle<CR>
+" }}}
+"
+" -----------------------------------------------------------------------------
+"  Parentheses! Hoo rah for Parentheses!
+" --------------------------------------------------------------------------{{{
+" Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'luochen1990/rainbow'
+let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
+" }}}
+"
+" -----------------------------------------------------------------------------
+"  Startify -- nice pretty startup menu
+" --------------------------------------------------------------------------{{{
+Plugin 'mhinz/vim-startify'
+"
+let g:startify_bookmarks = [ ]
+let g:startify_list_order = [
+            \ ['   Here be recently used files'],
+            \ 'files',
+            \ ['   Here be recently used files in the current directory:'],
+            \ 'dir',
+            \ ['   These are my sessions:'],
+            \ 'sessions',
+            \ ['   These are my bookmarks:'],
+            \ 'bookmarks',]
+" only startify if starting vim without files to edit:
+let g:startify_disable_at_vimenter = 0
+autocmd VimEnter *
+        \   if !argc()
+        \ |   Startify
+        \ |   wincmd w
+        \ | endif
+        \
+"
+let g:startify_change_to_dir = 1
+" }}}
+"
+" -----------------------------------------------------------------------------
+"  pydoc -- for reading python docstrings
+" --------------------------------------------------------------------------{{{
+" the content of pydoc.vim needs to live in /usr/share/vim/vim73/ftplugin
+Plugin 'fs111/pydoc.vim'
+" }}}
+"
+" -----------------------------------------------------------------------------
+" Tags! Exuberant Ctags and friends! They all live here!
+" --------------------------------------------------------------------------{{{
+" For automatic maintenance of a tags file
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-easytags'
+let g:easytags_file='~/.vim/tags/vimtags'  " keeping ALL the junk in one place
+" tag explorer window
+Plugin 'majutsushi/tagbar'
+nmap <F8> :TagbarToggle<CR>
+"
+" the following sets the locations for the exuberant tags file, used
+" for autocompletion and etc.
+" set tags=~/Projects/tags      " killed 'cos of easytags
+" }}}
+"
+" -----------------------------------------------------------------------------
+"  python-mode
+" --------------------------------------------------------------------------{{{
+Plugin 'klen/python-mode'
+" pymode does python-y things. The following makes it so that pymode likes
+" to use python3 instead of old crummy python2.
+let g:pymode_python = 'python3'
+" Hopefully this kills the annoying behavior when I type '.'
+let g:pymode_rope_complete_on_dot = 0
+" change the command for breakpoints because 1. I dunno what they do and
+" 2. I use buffergator more. Clashing keybinds, batman!
+let g:pymode_breakpoint_bind = '<leader>F1'
+" }}}
+"
+" -----------------------------------------------------------------------------
+" Synatastic! Syntax checking upon demand (and/or on file save!)
+" --------------------------------------------------------------------------{{{
+Plugin 'scrooloose/syntastic'
+" }}}
+"
+" -----------------------------------------------------------------------------
+"  flake8 -- checks to make sure I'm following python style guide
+" --------------------------------------------------------------------------{{{
+Plugin 'nvie/vim-flake8'    " <F7> invokes flake8 checking
+" }}}
+"
+" ALL plugins must be above this line -----------------------------------------
+" Here we make the vundle-ing happen: --------------------------------------{{{
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" }}}
+"
+" *****************************************************************************
+" END the VUNDLE-ING                                                         **
+" *****************************************************************************
+" }}}
+"
+" -----------------------------------------------------------------------------
+" vim directories -- keeping stuff organized since... earlier today         {{{
+" -----------------------------------------------------------------------------
+"
+" some stuff I stole from a dude on the internet:
+if !isdirectory(expand('~/.vim/undo/', 1))
+    silent call mkdir(expand('~/.vim/undo', 1), 'p')
+endif
+"
+if !isdirectory(expand('~/.vim/backup/', 1))
+    silent call mkdir(expand('~/.vim/backup', 1), 'p')
+endif
+"
+if !isdirectory(expand('~/.vim/swap/', 1))
+    silent call mkdir(expand('~/.vim/swap', 1), 'p')
+endif
+" Why TWO slashes at the end? No more name collision:
+" http://stackoverflow.com/a/15317146
+set backupdir=~/.vim/backup//
+set undodir=~/.vim/undo//
+set directory=~/.vim/swap//
+set backup                              " juuuust in case. Knock on wood.
+set undofile                            " multiple udos saved between sessions
+set swapfile                            " swapping...
+" }}}
+"
+" -----------------------------------------------------------------------------
+" General settings and options                                              {{{
+" --------------------------------------------------------------------------{{{
+set viminfo='50,h,n~/.vim/viminfo       " keeping it all in the same place
+                                        " '50 -- keep 50 files of stuff
+                                        " n~/.vim... location of viminfo file
+                                        " h .. disable 'hlsearch' when
+                                        " reloading the viminfo file
+set backspace=indent,eol,start
+                    " backspace over ALL the things
+set encoding=utf-8  " Damn unicode. Just damn it.
+set scrolloff=5     " keep some context around cursor
+set noshowmode      " show Insert, Replace or Visual mode on command line
+                    " setting 'showmode' off since statusline shows mode
+set showcmd         " shows incomplete commands on the right side of the
+                    " command line as they are being typed
+                    " also shows lines/matrix Visual selection on the
+                    " right side of the command line
+set wildmenu        " turns on enhanced command line auto-completion
+set wildmode=full   " if 'wildmode' is set to 'full', the wildmenu replaces the
+                    " statusline with possible command matches
+" set wildmode=list:longest
+                    " controls behavior of command line completion
+set visualbell      " visual insteead of auditory bell
+set ruler           " Total lines and percent place in file in statusline
+set hidden          " allow files to be hidden instead of requiring saves
+set matchpairs+=<:> " the % command can jump between angles
+augroup focus       " turns on autosave when you alt-tab to another program
+    autocmd!
+    autocmd FocusLost * :wa
+augroup END
+" }}}
+"
+" Folds --------------------------------------------------------------------{{{
+set nofoldenable        " start with folds off
+set foldcolumn=1        " Visual indicator for folds.
+set foldmethod=indent   " use indents to determine folds (e.g. python!)
+set foldminlines=3      " minimum size of automatically generated folds
+set fillchars+=fold:~   " why not?
+" }}}
+"
+" Text Formating -----------------------------------------------------------{{{
+" see 'fo-table' for full options
+set formatoptions+=q    " q: allow formatting of comments with 'gq'
+set formatoptions+=r    " r: insert comment leader after hitting <Enter> in insert mode
+set formatoptions+=n1   " n: recognize numbered lists
+                        " n1: first item wraps
+set formatoptions+=j    " j: remove comment leader when joining lines
+set formatoptions+=c    " c: auto-wrap comments after 'textwidth'
+set formatoptions+=o    " o: auto-insert comment leader after hitting 'o'
+                        " or 'O' in normal mode
+"
+set wrap                " VISUALLY wrap lines longer than the window width
+set textwidth=79        " maximum width before inserted text is auto-wrapped
+" }}}
+"
+" Looks and Feels-----------------------------------------------------------{{{
+set colorcolumn=81      " visual reminder of the 'right' line length
+set cursorline          " turns on line indicating current cursor row
+" set cursorcolumn      " uncomment if we want a colored cursor column
+set showmatch           " show matching parenthesis
+"
+set listchars=tab:>~,trail:.
+                        " Set up display of tabs and trailing whitespace
+augroup insert_list
+    autocmd!
+    autocmd InsertEnter *   :set nolist
+    autocmd InsertLeave *   :set list                " turn on display of listchars
+augroup END
+" Line Numbers in the gutter --------------------------------------------------
+" 'nu' + 'nornu' in Insert, 'nu' + 'rnu' in Normal and Visual
+set number              " 'number' always on
+augroup insert_numbers
+    autocmd!
+    autocmd BufEnter    * :set relativenumber       " initialize or it gets wonky
+    autocmd InsertEnter * :set norelativenumber
+    autocmd InsertLeave * :set relativenumber
+augroup END
+set numberwidth=5       " constant gutter size
+"
+" INSERT and NORMAL modes can have different cursors in terminal mode:
+" tmux will only forward escape sequences to the terminal if surrounded by a DCS sequence
+" https://gist.github.com/andyfowler/1195581
+if exists('$TMUX')
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
+" }}}
+"
+" Tabs and Tab Behavior ----------------------------------------------------{{{
+set tabstop=4           " tabs mean THIS number of spaces
+set smarttab            " uses 'shiftwidth' for tabs at start of line
+set softtabstop=0       " controls behavior of <Tab> while editing
+set expandtab           " turns tabs into the right number of spaces instead
+set shiftwidth=4        " number of spaces to use for autoindenting
+set autoindent          " always set autoindenting on
+set copyindent          " copy the previous indentation on autoindenting
+set shiftround          " use multiple of shiftwidth when indenting with '<' and '>'
+" }}}
+"
+" Searching ----------------------------------------------------------------{{{
+set ignorecase          " ignore case when searching
+set smartcase           " ignore case if search pattern is all lowercase,
+set gdefault            " replace globally on lines
+set hlsearch            " highlight search terms
+set incsearch           " show search matches as you type
+set showmatch
+nnoremap <CR> :noh<CR><CR>
+                        " Toggle off search highlighting
+" }}}
+"
+" Mouse mouse mouse in the house house house -------------------------------{{{
+" set mouse=a             " First, enable mouse in all modes
+set mouse+=n            " mouse in normal and visual
+set mouse+=v
+set mouse-=i            " no mouse in insert
+set ttyfast             " sends more characters for faster redraws
+set ttymouse=xterm2     " sets the terminal type for sending mouse codes.
+                        " 'xterm2' reports mouse position during dragging.
+" }}}
+"
+" Filetypes ----------------------------------------------------------------{{{
+syntax enable
+augroup filetypedetect
+" the tmux.vim syntax file linked form the tmux 2.0 script examples
+    autocmd!
+    autocmd BufNewFile,BufRead .tmux.conf*,tmux.conf*  set filetype=tmux
+    autocmd BufNewFile,BufRead .zshrc,.zsh*,*.zsh      set filetype=zsh
+    autocmd BufNewFile,BufRead .vimrc,.vim*            set filetype=vim
+augroup END
+
+augroup filetype_vim
+    autocmd!
+    " autocmd Filetype vim    setlocal foldenable
+    autocmd Filetype vim    setlocal foldminlines=1
+    autocmd FileType vim    setlocal foldmethod=marker
+augroup END
+" }}}
+" end of General Options                                                    }}}
+"
+" -----------------------------------------------------------------------------
+" Key Remappings                                                            {{{
+" (that don't fit in with sepcific plugins)
+" --------------------------------------------------------------------------{{{
+                    " <tab> can now scoot around braces etc
+nnoremap <tab> %
+vnoremap <tab> %
+"
+" These disable the arrow keys while in insert mode. They are designed
+" to appeal to the masochist inside all of us.
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+nnoremap j gj
+nnoremap k gk
+"
+" Here we kill the <F1> as <help>; gonna have to type `:help' all on your own
+inoremap <F1> <ESC>
+nnoremap <F1> <ESC>
+vnoremap <F1> <ESC>
+" }}}
+"
+" New mappings & new commands-----------------------------------------------{{{
+"   convert to UPPERCASE
+inoremap <C-u> <esc>viwUei
+nnoremap <C-u> viwUe<esc>
+"   open .vimrc in a split
+nnoremap <leader>ev :split $MYVIMRC<cr>
+"   auto-wrap words in quotes
+nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
+nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
+"   auto-wrap words in parens
+nnoremap <leader>( viw<esc>a)<esc>hbi(<esc>lel
+nnoremap <leader>) viw<esc>a)<esc>hbi(<esc>lel
+"   auto-wrap words in curly braces
+nnoremap <leader>{ viw<esc>a}<esc>hbi{<esc>lel
+nnoremap <leader>} viw<esc>a}<esc>hbi{<esc>lel
+"   auto-wrap words in square brackets
+nnoremap <leader>[ viw<esc>a]<esc>hbi[<esc>lel
+nnoremap <leader>] viw<esc>a]<esc>hbi[<esc>lel
+" }}}
+"
+" ----------------------------------------------------------------------------
+"  Abbreviations
+" --------------------------------------------------------------------------{{{
+iabbrev adn and
+" }}}
+" end of remappings                                                         }}}
+
+" -----------------------------------------------------------------------------
+"  Colorschemes Config                                                      {{{
+" --------------------------------------------------------------------------{{{
+set background=dark
+" This lets vim use 256 colors. Or so some dude on the internet tells me
+" Note: these seem to break vim
+" set t_Co=256
+" " set t_AB=^[[48;5;%dm
+" " set t_AF=^[[38;5;%dm
+" }}}
+"
+" Solarized -----------------------------------------------------{{{
+" this block of commands has been autogenerated by solarized.vim and
+" includes the current, non-default Solarized option values.
+" To use, place these commands in your .vimrc file (replacing any
+" existing colorscheme commands). See also ":help solarized"
+"
+" The following items are available options, but do not need to be
+" included in your .vimrc as they are currently set to their defaults.
+"
+" let g:solarized_contrast="normal"     "default value is normal
+" let g:solarized_visibility="normal"   "default value is normal
+" let g:solarized_diffmode="normal"     "default value is normal
+" let g:solarized_hitrail=1             "default value is 0
+"
+" The following is for use on terminals tht support 256 colors but do not
+" have the custom Solarized colors installed/enabled
+" let g:solarized_termcolors = 256      "New line!!
+" let g:solarized_termcolors = 16       "New line!!
+" let g:solarized_termtrans=0
+" let g:solarized_degrade=0
+" let g:solarized_bold=1
+" let g:solarized_underline=1
+" let g:solarized_italic=1
+" colorscheme solarized
+" }}}
+"
+" Gruvbox-------------------------------------------------------------------{{{
+let g:gruvbox_italic=1                  " turn on the sweet sweet slanties
+let g:gruvbox_contrast_dark='medium'
+let g:gruvbox_contrast_light='hard'
+colorscheme gruvbox
+highlight LineNr ctermbg=237
+" }}}
+"
+" Jellybeans----------------------------------------------------------------{{{
+" colorscheme jellybeans
+" }}}
+"
+" Overrides-----------------------------------------------------------------{{{
+highlight Folded    ctermbg=blue
+" highlight Comment   cterm=italic
+" highlight Comment   cterm=italic ctermfg=237 ctermbg=None
+" highlight Normal    cterm=None   ctermfg=255 ctermbg=Black
+" highlight Todo      cterm=bold   ctermfg=magenta ctermbg=None
+" }}}
+" end of colorschemes                                                       }}}
+"
+" -----------------------------------------------------------------------------
+"
+" much of what I've stolen I've stolen from here:
+" http://stevelosh.com/blog/2010/09/coming-home-to-vim/#bundles-i-use
+"
+" Other usefulplaces what I've stolen from:
+"
+" http://sjl.bitbucket.org/gundo.vim/
+" http://sontek.net/blog/detail/turning-vim-into-a-modern-python-ide
+" https://github.com/gmarik/Vundle.vim
+" http://www.jeffknupp.com/blog/2013/12/04/my-development-environment-for-python/
