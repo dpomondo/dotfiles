@@ -41,6 +41,7 @@ antigen apply
 #
 source ~/.shell/profile               # shell-agnostic vars and exports live here
 source ~/.shell/zhistory.zsh
+source ~/.shell/zfunctions.zsh
 source ~/.shell/zprompt.zsh
 source ~/.shell/zcomp.zsh
 source ~/.shell/zalias.zsh

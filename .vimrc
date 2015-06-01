@@ -430,12 +430,13 @@ set ttymouse=xterm2     " sets the terminal type for sending mouse codes.
 "
 " Filetypes ----------------------------------------------------------------{{{
 syntax enable
-augroup filetypedetect
+augroup override_filetypedetect
 " the tmux.vim syntax file linked form the tmux 2.0 script examples
     autocmd!
     autocmd BufNewFile,BufRead .tmux.conf*,tmux.conf*  set filetype=tmux
     autocmd BufNewFile,BufRead .zshrc,.zsh*,*.zsh      set filetype=zsh
     autocmd BufNewFile,BufRead .vimrc,.vim*            set filetype=vim
+    autocmd BufNewFile,BufRead .shell/profile          set filetype=zsh
 augroup END
 
 augroup filetype_vim
