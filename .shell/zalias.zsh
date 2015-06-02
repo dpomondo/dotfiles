@@ -10,6 +10,3 @@ alias la='ls $LS_OPTIONS -lA'   # same, but with hidden files
 alias ..='cd ..'                # up...
 alias ...='cd ../..'            # ... up...
 alias ....='cd ../../..'        # ... and away!
-
-# report!
-echo "done reading zalias.zsh"

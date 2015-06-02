@@ -22,16 +22,18 @@
 # Sourcing Sub-Files
 # -----------------------------------------------------------------------------
 #
-source ~/.shell/profile             # shell-agnostic vars and exports live here
-source ~/.shell/zhistory.zsh
-source ~/.shell/zantigen.zsh        # sourced early because it overwrites MY stuff
-source ~/.shell/zfunctions.zsh
-source ~/.shell/zprompt.zsh
-source ~/.shell/zcomp.zsh
-source ~/.shell/zalias.zsh
-source ~/.shell/zoptions.zsh
-source ~/.shell/color.zsh
+# logic!
+for fil in ~/.shell/*.zsh ; do
+    if [[ $"INITIAL_ZSHRC" == "0" ]] \
+        || [[ "$CURRENT_ZSHRC_LOADTIME" < "$(stat -f %m $fil)" ]] ;
+    then
+        source $fil
+        echo "done reading $fil"
+    else
+        echo "...$fil already loaded"
+    fi
+done
 
-zmodload -i zsh/datetime            # get me my strftime!
+# vars for logic
 export INITIAL_ZSHRC=1              # flag the first loading of this file
 export CURRENT_ZSHRC_LOADTIME=$EPOCHSECONDS

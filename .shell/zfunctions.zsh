@@ -13,6 +13,3 @@
 function truncated_pwd {
     echo $(cwd_func.py) 2>/dev/null
 }
-
-# report!
-echo "done reading zfunctions.zsh"

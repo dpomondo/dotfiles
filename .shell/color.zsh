@@ -20,6 +20,3 @@ fi
 
 # set colors for ls long form
 export LSCOLORS='Fxfxcxdxbxegedabaggacad'
-
-# report your sourcing!
-echo "done reading color.zsh"

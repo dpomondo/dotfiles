@@ -13,5 +13,3 @@ zstyle :compinstall filename '/Users/caseyopdahl/.shell/zcomp.zsh'
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
-#
-echo "done reading zcomp.zsh"

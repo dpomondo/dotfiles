@@ -17,6 +17,3 @@ HISTFILE=~/.shell/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 HISTCHARS='@^#'                 # let bang be bang
-
-# report
-echo "done reading zhistory.zsh"
