@@ -50,5 +50,5 @@ for fil in ~/.shell/*.zsh ; do
 done
 
 # vars for logic
-export INITIAL_ZSHRC=1              # flag the first loading of this file
-export CURRENT_ZSHRC_LOADTIME=$EPOCHSECONDS
+INITIAL_ZSHRC=1              # flag the first loading of this file
+CURRENT_ZSHRC_LOADTIME=$EPOCHSECONDS
