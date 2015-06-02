@@ -6,3 +6,6 @@
 setopt INTERACTIVE_COMMENTS     # comments on the command line
 setopt autocd
 bindkey -v                      # vim-style line editing
+
+ # report
+ echo "done reading zoptions.zsh"

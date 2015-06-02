@@ -8,7 +8,11 @@
 if [[ -z $PROFILE_LOADED ]];
 then
     export PATH=$PATH:/usr/self/bin
+    export PATH=$PATH:/usr/self
 fi
 
 # Here we make sure this script doesnt' get loaded more than once
 export PROFILE_LOADED=1
+
+# report!
+echo "done reading profile"

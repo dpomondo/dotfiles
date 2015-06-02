@@ -1,6 +1,10 @@
 #! /usr/local/bin/python3
 # coding=utf-8
 
+# python script to parse and format current working directory
+# and return the result to zsh for using in a prompt. Requires
+# the use of an external shell script, found in ~/.shell/zfunctions.zsh
+#
 import os
 import sys
 
@@ -13,7 +17,7 @@ else:
 # left = "%F{015}[%(?..(%?%))%f %F{54}%K{073}%{$(echo '\e[3m')%}"
 # right = "%{$(echo '\e[23m')%}%k%f %F{073}%t ]%f"
 left = "%{%F{015}%}[ %{%f%K{115}%}"
-right = "%{%k%F{015}%} ]%{%f%}"
+right = "%{%k%F{015}%} %t ]%{%f%}"
 left_ital = "%{\e[3m%}"
 right_ital = "%{\e[23m%}"
 

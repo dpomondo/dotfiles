@@ -1,6 +1,5 @@
 # This gets sources by .zshrc
 #
-export ZPROMPT_LOADED=1
 # -----------------------------------------------------------------------------
 # Prompt! Woo baby!
 # -----------------------------------------------------------------------------
@@ -17,3 +16,6 @@ PS1="%F{57}[ %f%F{magenta}%B%n%b%f %F{57}]%f%# "
 # with -- \e[23m
 # RPS1="%F{015}[%(?..(%?%))%f %F{54}%K{073}%{$(echo '\e[3m')%}%3/%{$(echo '\e[23m')%}%k%f %F{015}%t ]%f"
 RPS1='$(truncated_pwd)'
+
+# report
+echo "done reading zprompt.zsh"

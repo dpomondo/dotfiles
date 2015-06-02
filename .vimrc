@@ -56,11 +56,11 @@ let g:yankring_history_dir='$HOME/.vim/,$VIM,$HOME'
 " --------------------------------------------------------------------------{{{
 " Note: I don't think this bundle actually works. If solarized is working
 " its because I manually linked it into the ~/.vim/colors directory
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'jaapie/vim-colours-dusk'
-Plugin 'nanotech/jellybeans.vim'
+" Plugin 'altercation/vim-colors-solarized'
+" Plugin 'jaapie/vim-colours-dusk'
+" Plugin 'nanotech/jellybeans.vim'
 Plugin 'morhetz/gruvbox'
-Plugin 'junegunn/seoul256.vim'
+" Plugin 'junegunn/seoul256.vim'
 " }}}
 "
 " -----------------------------------------------------------------------------
@@ -209,6 +209,12 @@ let g:startify_change_to_dir = 1
 " }}}
 "
 " -----------------------------------------------------------------------------
+" Synatastic! Syntax checking upon demand (and/or on file save!)
+" --------------------------------------------------------------------------{{{
+Plugin 'scrooloose/syntastic'
+" }}}
+"
+" -----------------------------------------------------------------------------
 "  pydoc -- for reading python docstrings
 " --------------------------------------------------------------------------{{{
 " the content of pydoc.vim needs to live in /usr/share/vim/vim73/ftplugin
@@ -234,21 +240,18 @@ nmap <F8> :TagbarToggle<CR>
 " -----------------------------------------------------------------------------
 "  python-mode
 " --------------------------------------------------------------------------{{{
-Plugin 'klen/python-mode'
-" pymode does python-y things. The following makes it so that pymode likes
-" to use python3 instead of old crummy python2.
-let g:pymode_python = 'python3'
 " Hopefully this kills the annoying behavior when I type '.'
 let g:pymode_rope_complete_on_dot = 0
 " change the command for breakpoints because 1. I dunno what they do and
 " 2. I use buffergator more. Clashing keybinds, batman!
 let g:pymode_breakpoint_bind = '<leader>F1'
-" }}}
-"
-" -----------------------------------------------------------------------------
-" Synatastic! Syntax checking upon demand (and/or on file save!)
-" --------------------------------------------------------------------------{{{
-Plugin 'scrooloose/syntastic'
+" pymode does python-y things. The following makes it so that pymode likes
+" to use python3 instead of old crummy python2.
+let g:pymode_python = 'python3'
+" auto-importing can chew through CPU like a child eating glue
+let g:pymode_rope_autoimport = 0
+
+Plugin 'klen/python-mode'
 " }}}
 "
 " -----------------------------------------------------------------------------
@@ -273,6 +276,11 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " }}}
 "
+" -----------------------------------------------------------------------------
+" fugitive -- the plugin for the one-armed man
+" --------------------------------------------------------------------------{{{
+Plugin 'tpope/vim-fugitive'
+" }}}
 " *****************************************************************************
 " END the VUNDLE-ING                                                         **
 " *****************************************************************************
@@ -441,9 +449,9 @@ augroup END
 
 augroup filetype_vim
     autocmd!
-    " autocmd Filetype vim    setlocal foldenable
-    autocmd Filetype vim    setlocal foldminlines=1
-    autocmd FileType vim    setlocal foldmethod=marker
+    autocmd Filetype vim    set foldenable
+    autocmd Filetype vim    set foldminlines=1
+    autocmd FileType vim    set foldmethod=marker
 augroup END
 " }}}
 " end of General Options                                                    }}}
