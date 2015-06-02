@@ -21,10 +21,25 @@
 # -----------------------------------------------------------------------------
 # Sourcing Sub-Files
 # -----------------------------------------------------------------------------
+zmodload zsh/datetime               # need my strftime!
 #
-# logic!
+# files loaded, in order:
+#   ~/.shell/antigen.zsh
+#   ~/.shell/color.zsh
+#   ~/.shell/profile.zsh
+#   ~/.shell/zalias.zsh
+#   ~/.shell/zcomp.zsh
+#   ~/.shell/zfunctions.zsh
+#   ~/.shell/zhistory.zsh
+#   ~/.shell/zoptions.zsh
+#   ~/.shell/zprompt.zsh
+#
+# only load the subscripts if:
+#   1.  $INITIAL_ZSHRC is unset (i.e. fresh zsh)
+#   2.  the write time of a subscript is younger than the last 
+#       call to source this file
 for fil in ~/.shell/*.zsh ; do
-    if [[ $"INITIAL_ZSHRC" == "0" ]] \
+    if [[ -z $"INITIAL_ZSHRC" ]] \
         || [[ "$CURRENT_ZSHRC_LOADTIME" < "$(stat -f %m $fil)" ]] ;
     then
         source $fil
