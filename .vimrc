@@ -1,3 +1,12 @@
+"   ____   ____  _____  __  __  _____  _  _  ____   _____ / ___
+"  (  _ \ (  _ \(  _  )(  \/  )(  _  )( \( )(  _ \ (  _  ) / __)
+"   )(_) ) )___/ )(_)(  )    (  )(_)(  )  (  )(_) ) )(_)(  \__ \
+"  (____/ (__)  (_____)(_/\/\_)(_____)(_)\_)(____/ (_____) (___/
+"     _  _  ____  __  __  ____   ___
+"    ( \/ )(_  _)(  \/  )(  _ \ / __)
+"     \  /  _)(_  )    (  )   /( (__
+"      \/  (____)(_/\/\_)(_)\_) \___)
+"
 " Here be some things I tweaked to makes mah vim be more
 " Likes what I want and not what it is normally
 " -----------------------------------------------------------------------------
@@ -241,17 +250,18 @@ nmap <F8> :TagbarToggle<CR>
 "  python-mode
 " --------------------------------------------------------------------------{{{
 " Hopefully this kills the annoying behavior when I type '.'
-let g:pymode_rope_complete_on_dot = 0
-" change the command for breakpoints because 1. I dunno what they do and
-" 2. I use buffergator more. Clashing keybinds, batman!
-let g:pymode_breakpoint_bind = '<leader>F1'
-" pymode does python-y things. The following makes it so that pymode likes
-" to use python3 instead of old crummy python2.
-let g:pymode_python = 'python3'
-" auto-importing can chew through CPU like a child eating glue
-let g:pymode_rope_autoimport = 0
+" let g:pymode_rope_complete_on_dot = 0
+" " change the command for breakpoints because 1. I dunno what they do and
+" " 2. I use buffergator more. Clashing keybinds, batman!
+" let g:pymode_breakpoint_bind = '<leader>F1'
+" " pymode does python-y things. The following makes it so that pymode likes
+" " to use python3 instead of old crummy python2.
+" let g:pymode_python = 'python3'
+" " rope an dauto-importing can chew through CPU like a child eating glue
+" let g:pymode_rope_autoimport = 0
+" let g:pymode_rope_lookup_project = 0
 
-Plugin 'klen/python-mode'
+" Plugin 'klen/python-mode'
 " }}}
 "
 " -----------------------------------------------------------------------------

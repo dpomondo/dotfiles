@@ -13,3 +13,7 @@
 function truncated_pwd {
     echo $(cwd_func.py) 2>/dev/null
 }
+
+# function current_temp {
+    # echo $(returner.py) 2>/dev/null
+# }

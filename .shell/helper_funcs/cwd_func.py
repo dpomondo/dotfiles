@@ -1,9 +1,9 @@
 #! /usr/local/bin/python3
 # coding=utf-8
 
-# python script to parse and format current working directory
-# and return the result to zsh for using in a prompt. Requires
-# the use of an external shell script, found in ~/.shell/zfunctions.zsh
+# python script for formatting the present working directory, keeping only the
+# last two dirs and prepending '...' if there are more than 2 dirs. Returns a
+# string with formatting appropriate for use in zsh prompt expansions.
 #
 import os
 import sys
