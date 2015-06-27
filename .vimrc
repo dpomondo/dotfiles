@@ -265,6 +265,12 @@ nmap <F8> :TagbarToggle<CR>
 " }}}
 "
 " -----------------------------------------------------------------------------
+" fugitive -- the plugin for the one-armed man
+" --------------------------------------------------------------------------{{{
+Plugin 'tpope/vim-fugitive'
+" }}}
+"
+" -----------------------------------------------------------------------------
 "  flake8 -- checks to make sure I'm following python style guide
 " --------------------------------------------------------------------------{{{
 Plugin 'nvie/vim-flake8'    " <F7> invokes flake8 checking
@@ -286,11 +292,6 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " }}}
 "
-" -----------------------------------------------------------------------------
-" fugitive -- the plugin for the one-armed man
-" --------------------------------------------------------------------------{{{
-Plugin 'tpope/vim-fugitive'
-" }}}
 " *****************************************************************************
 " END the VUNDLE-ING                                                         **
 " *****************************************************************************
@@ -585,7 +586,7 @@ highlight LineNr ctermbg=237
 " much of what I've stolen I've stolen from here:
 " http://stevelosh.com/blog/2010/09/coming-home-to-vim/#bundles-i-use
 "
-" Other usefulplaces what I've stolen from:
+" Other useful places what I've stolen from:
 "
 " http://sjl.bitbucket.org/gundo.vim/
 " http://sontek.net/blog/detail/turning-vim-into-a-modern-python-ide
