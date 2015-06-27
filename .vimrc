@@ -69,7 +69,7 @@ let g:yankring_history_dir='$HOME/.vim/,$VIM,$HOME'
 " Plugin 'jaapie/vim-colours-dusk'
 " Plugin 'nanotech/jellybeans.vim'
 Plugin 'morhetz/gruvbox'
-" Plugin 'junegunn/seoul256.vim'
+Plugin 'junegunn/seoul256.vim'
 " }}}
 "
 " -----------------------------------------------------------------------------
@@ -104,7 +104,7 @@ let g:airline_symbols.paste = 'ρ'
 
 let g:airline#extensions#tabline#left_sep = '>'
 let g:airline#extensions#tabline#left_alt_sep = '>'
-let g:airline_theme='luna'
+let g:airline_theme='bubblegum'
 " <This space intentionally left blank/>
 "
 set laststatus=2        " reserve second-to-last line for statusline
@@ -131,6 +131,7 @@ let g:NERDSpaceDelims = 1   " put a space between a comment character and text
 "  Unite does some things... or so I hear
 " --------------------------------------------------------------------------{{{
 Plugin 'Shougo/unite.vim'
+Plugin 'Shougo/vimproc.vim'
 " }}}
 "
 " -----------------------------------------------------------------------------
@@ -181,7 +182,6 @@ let g:gundo_prefer_python3 = 1
 " Gundo always shot first.
 nnoremap <F5> :GundoToggle<CR>
 " }}}
-"
 " -----------------------------------------------------------------------------
 "  Parentheses! Hoo rah for Parentheses!
 " --------------------------------------------------------------------------{{{
@@ -257,7 +257,7 @@ nmap <F8> :TagbarToggle<CR>
 " " pymode does python-y things. The following makes it so that pymode likes
 " " to use python3 instead of old crummy python2.
 " let g:pymode_python = 'python3'
-" " rope an dauto-importing can chew through CPU like a child eating glue
+" " rope an auto-importing can chew through CPU like a child eating glue
 " let g:pymode_rope_autoimport = 0
 " let g:pymode_rope_lookup_project = 0
 
@@ -449,12 +449,14 @@ set ttymouse=xterm2     " sets the terminal type for sending mouse codes.
 " Filetypes ----------------------------------------------------------------{{{
 syntax enable
 augroup override_filetypedetect
-" the tmux.vim syntax file linked form the tmux 2.0 script examples
+" the tmux.vim syntax file linked from the tmux 2.0 script examples
     autocmd!
     autocmd BufNewFile,BufRead .tmux.conf*,tmux.conf*  set filetype=tmux
     autocmd BufNewFile,BufRead .zshrc,.zsh*,*.zsh      set filetype=zsh
     autocmd BufNewFile,BufRead .vimrc,.vim*            set filetype=vim
     autocmd BufNewFile,BufRead .shell/profile          set filetype=zsh
+    autocmd BufNewFile,Bufread *.pde                   set filetype=java
+    " autocmd BufNewFile,Bufread *.ino                   set filetype=arduino
 augroup END
 
 augroup filetype_vim
@@ -540,7 +542,7 @@ set background=dark
 " The following items are available options, but do not need to be
 " included in your .vimrc as they are currently set to their defaults.
 "
-" let g:solarized_contrast="normal"     "default value is normal
+" let g:solarized_contrast="high"     "default value is normal
 " let g:solarized_visibility="normal"   "default value is normal
 " let g:solarized_diffmode="normal"     "default value is normal
 " let g:solarized_hitrail=1             "default value is 0
@@ -570,7 +572,7 @@ highlight LineNr ctermbg=237
 " }}}
 "
 " Overrides-----------------------------------------------------------------{{{
-highlight Folded    ctermbg=blue
+" highlight Folded    ctermbg=blue
 " highlight Comment   cterm=italic
 " highlight Comment   cterm=italic ctermfg=237 ctermbg=None
 " highlight Normal    cterm=None   ctermfg=255 ctermbg=Black

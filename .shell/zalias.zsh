@@ -10,3 +10,7 @@ alias la='ls $LS_OPTIONS -lA'   # same, but with hidden files
 alias ..='cd ..'                # up...
 alias ...='cd ../..'            # ... up...
 alias ....='cd ../../..'        # ... and away!
+
+# gnu for you and noe for me! gawk for awk!
+alias date='gdate'
+alias awk='gawk'                  # is this a good idea? I have no clue
