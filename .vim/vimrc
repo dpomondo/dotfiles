@@ -67,9 +67,18 @@ let g:yankring_history_dir='$HOME/.vim/,$VIM,$HOME'
 " its because I manually linked it into the ~/.vim/colors directory
 " Plugin 'altercation/vim-colors-solarized'
 " Plugin 'jaapie/vim-colours-dusk'
-" Plugin 'nanotech/jellybeans.vim'
+" Plugin 'nantech/jellybeans.vim'
 Plugin 'morhetz/gruvbox'
-Plugin 'junegunn/seoul256.vim'
+" Plugin 'gosukiwi/vim-atom-dark'
+" Plugin 'geoffharcourt/one-dark.vim'
+" Plugin 'junegunn/seoul256.vim'
+Plugin 'tomasr/molokai'
+" Plugin 'tpope/vim-vividchalk'
+" Plugin 'reedes/vim-colors-pencil'
+" Plugin 'vim-scripts/Liquid-Carbon'
+" Plugin 'baskerville/bubblegum'
+" Plugin 'vim-scripts/darkslategray.vim'
+Plugin 'NLKNguyen/papercolor-theme'
 " }}}
 "
 " -----------------------------------------------------------------------------
@@ -104,7 +113,7 @@ let g:airline_symbols.paste = 'ρ'
 
 let g:airline#extensions#tabline#left_sep = '>'
 let g:airline#extensions#tabline#left_alt_sep = '>'
-let g:airline_theme='bubblegum'
+let g:airline_theme='luna'
 " <This space intentionally left blank/>
 "
 set laststatus=2        " reserve second-to-last line for statusline
@@ -132,6 +141,9 @@ let g:NERDSpaceDelims = 1   " put a space between a comment character and text
 " --------------------------------------------------------------------------{{{
 Plugin 'Shougo/unite.vim'
 Plugin 'Shougo/vimproc.vim'
+"
+" call unite#filters#matcher_default#use(['matcher_fuzzy'])
+" nnoremap <leader>r :<C-u>Unite -start-insert file_rec<CR>
 " }}}
 "
 " -----------------------------------------------------------------------------
@@ -152,7 +164,7 @@ Plugin 'Shougo/vimproc.vim'
 " Here be NEDTree keybinds. There are other keybinds some other damn place.
 " First lets me toggle NERDTree on and off. Because. The second shrinks the
 " current window just in case it gets all big and weird.
-" nnoremap <F6> :NERDTreeToggle
+                                                " nnoremap <F6> :NERDTreeToggle
 " noremap <S-F6> " somethingsomething to resize a vertical split
 " ABOVE this line is the NERDTree stuff if it comes back ----------------------
 "
@@ -162,8 +174,8 @@ Plugin 'Shougo/vimfiler.vim'
 :let g:vimfiler_as_default_explorer = 1
 :let g:loaded_netrw       = 1       " Disable netrw.vim
 :let g:loaded_netrwPlugin = 1
-nnoremap <F6> :VimFiler -toggle -force-quit<CR>
-nnoremap <S-F6> :VimFilerExplorer -toggle <CR>
+nnoremap <S-F6> :VimFiler -toggle -force-quit<CR>
+nnoremap <F6> :VimFilerExplorer -toggle<CR>
 "
 " uncomment to auto-open an explorer pane
 " autocmd VimEnter * VimFilerExplorer
@@ -182,6 +194,17 @@ let g:gundo_prefer_python3 = 1
 " Gundo always shot first.
 nnoremap <F5> :GundoToggle<CR>
 " }}}
+"
+" -----------------------------------------------------------------------------
+"  Searching... searching...
+" --------------------------------------------------------------------------{{{
+Plugin 'haya14busa/incsearch.vim'
+"
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+" }}}
+"
 " -----------------------------------------------------------------------------
 "  Parentheses! Hoo rah for Parentheses!
 " --------------------------------------------------------------------------{{{
@@ -195,18 +218,34 @@ let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 " --------------------------------------------------------------------------{{{
 Plugin 'mhinz/vim-startify'
 "
+let g:startify_disable_at_vimenter = 0
+let g:startify_change_to_dir = 1
 let g:startify_bookmarks = [ ]
+"
+" Startify and sessions!
+if !isdirectory(expand('~/.vim/sessions/', 1))
+    silent call mkdir(expand('~/.vim/sessions', 1), 'p')
+endif
+let g:startify_session_dir = '~/.vim/sessions'
+let g:startify_session_autoload = 1         " autoload `Session.vim`
+let g:startify_session_delete_buffers = 1   " 
+let g:startify_session_persistence = 1
+" let g:startify_session_remove_lines = [ ]
+" let g:startify_session_savecmds = []
+" let g:startify_session_savevars = []
+" 
+" Startify start menu
+let g:startify_files_number = 8 
 let g:startify_list_order = [
-            \ ['   Here be recently used files'],
+            \ ['   These are my recently used files'],
             \ 'files',
-            \ ['   Here be recently used files in the current directory:'],
+            \ ['   These are files in the current directory:'],
             \ 'dir',
             \ ['   These are my sessions:'],
             \ 'sessions',
             \ ['   These are my bookmarks:'],
             \ 'bookmarks',]
 " only startify if starting vim without files to edit:
-let g:startify_disable_at_vimenter = 0
 autocmd VimEnter *
         \   if !argc()
         \ |   Startify
@@ -214,7 +253,25 @@ autocmd VimEnter *
         \ | endif
         \
 "
-let g:startify_change_to_dir = 1
+" }}}
+"
+" -----------------------------------------------------------------------------
+" Snippets! 
+" --------------------------------------------------------------------------{{{
+" Track the engine.
+Plugin 'SirVer/ultisnips'
+
+" Snippets are separated from the engine. Add this if you want them:
+Plugin 'honza/vim-snippets'
+
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
 " }}}
 "
 " -----------------------------------------------------------------------------
@@ -265,9 +322,21 @@ nmap <F8> :TagbarToggle<CR>
 " }}}
 "
 " -----------------------------------------------------------------------------
+"  alternative python syntax
+" --------------------------------------------------------------------------{{{
+Plugin 'hdima/python-syntax'
+" }}}
+"
+" -----------------------------------------------------------------------------
 " fugitive -- the plugin for the one-armed man
 " --------------------------------------------------------------------------{{{
 Plugin 'tpope/vim-fugitive'
+" }}}
+"
+" -----------------------------------------------------------------------------
+" surround -- the plugin that caught the one-armed man
+" --------------------------------------------------------------------------{{{
+Plugin 'tpope/vim-surround'
 " }}}
 "
 " -----------------------------------------------------------------------------
@@ -561,20 +630,26 @@ set background=dark
 " }}}
 "
 " Gruvbox-------------------------------------------------------------------{{{
-let g:gruvbox_italic=1                  " turn on the sweet sweet slanties
-let g:gruvbox_contrast_dark='medium'
-let g:gruvbox_contrast_light='hard'
-colorscheme gruvbox
-highlight LineNr ctermbg=237
+" let g:gruvbox_italic=1                  " turn on the sweet sweet slanties
+" let g:gruvbox_contrast_dark='medium'
+" let g:gruvbox_contrast_light='hard'
+" colorscheme gruvbox
+" highlight LineNr ctermbg=237
 " }}}
 "
-" Jellybeans----------------------------------------------------------------{{{
+" -----------------------------------------------------------------------------
+" Individual Themes 
+" --------------------------------------------------------------------------{{{
+" colorscheme atom-dark-256
 " colorscheme jellybeans
+" colorscheme vividchalk
+colorscheme molokai
+" colorscheme PaperColor-Dark
 " }}}
 "
 " Overrides-----------------------------------------------------------------{{{
 " highlight Folded    ctermbg=blue
-" highlight Comment   cterm=italic
+highlight Comment   cterm=italic
 " highlight Comment   cterm=italic ctermfg=237 ctermbg=None
 " highlight Normal    cterm=None   ctermfg=255 ctermbg=Black
 " highlight Todo      cterm=bold   ctermfg=magenta ctermbg=None

@@ -17,3 +17,7 @@ export PATH=$PATH:/usr/self
 #
 # path for the Java parts of the Algorithms MOOC 
 export CLASSPATH=$CLASSPATH:~/algs4/stdlib.jar:~/algs4/algs4.jar
+
+# And here we have the neovim hacks!
+export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+set NVIM_TUI_ENABLE_TRUE_COLOR
