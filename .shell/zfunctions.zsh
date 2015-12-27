@@ -38,3 +38,12 @@ function psetup {
      sketch=$1;
      mkdir $sketch; touch $sketch/$sketch.pde; cd $sketch;
 }
+
+# stolen from:
+# http://zanshin.net/2012/08/01/my-zsh-setup-for-python-virtualenv/
+#
+# purpose:
+# return virtaulenv info (which eventually moves into the left propmpt)
+function virtualenv_info {
+    [ $VIRTUAL_ENV ] && echo '('`basename $VIRTUAL_ENV`') '
+}

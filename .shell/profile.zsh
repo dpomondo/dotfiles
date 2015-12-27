@@ -10,13 +10,22 @@
 # then
 export PATH=$PATH:/usr/self/bin
 export PATH=$PATH:/usr/self
+
+# if [[ -z $PYTHONPATH ]]
+# then
+    # export PYTHONPATH=usr/self/bin
+# else
+    # export PYTHONPATH=$PYTHONPATH:/usr/self/bin
+# fi
 # fi
 
+# tell virtualenv to alter the prompt
+set VIRTUAL_ENV_DISABLE_PROMPT
 # # Here we make sure this script doesnt' get loaded more than once
 # export PROFILE_LOADED=1
 #
 # path for the Java parts of the Algorithms MOOC 
-export CLASSPATH=$CLASSPATH:~/algs4/stdlib.jar:~/algs4/algs4.jar
+# export CLASSPATH=$CLASSPATH:~/algs4/stdlib.jar:~/algs4/algs4.jar
 
 # And here we have the neovim hacks!
 export NVIM_TUI_ENABLE_CURSOR_SHAPE=1

@@ -68,8 +68,9 @@ let g:yankring_history_dir='$HOME/.vim/,$VIM,$HOME'
 " Plugin 'altercation/vim-colors-solarized'
 " Plugin 'jaapie/vim-colours-dusk'
 " Plugin 'nantech/jellybeans.vim'
-Plugin 'morhetz/gruvbox'
+" Plugin 'morhetz/gruvbox'
 " Plugin 'gosukiwi/vim-atom-dark'
+" Plugin 'joshdick/onedark.vim'
 " Plugin 'geoffharcourt/one-dark.vim'
 " Plugin 'junegunn/seoul256.vim'
 Plugin 'tomasr/molokai'
@@ -78,7 +79,7 @@ Plugin 'tomasr/molokai'
 " Plugin 'vim-scripts/Liquid-Carbon'
 " Plugin 'baskerville/bubblegum'
 " Plugin 'vim-scripts/darkslategray.vim'
-Plugin 'NLKNguyen/papercolor-theme'
+" Plugin 'NLKNguyen/papercolor-theme'
 " }}}
 "
 " -----------------------------------------------------------------------------
@@ -97,6 +98,7 @@ Plugin 'bling/vim-airline'
 let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#tabline#show_buffers=0
 let g:airline#extensions#tabline#show_tabs=0
+let g:airline#extensions#bufferline#enabled = 1
 "
 " Here is where a custom statusline would live, if I had the patience to learn
 " how to make custom statuslines:
@@ -118,6 +120,9 @@ let g:airline_theme='luna'
 "
 set laststatus=2        " reserve second-to-last line for statusline
 " set statusline=0      " uncomment (and comment out above)to kill the statusline
+"
+" this didn't work. then it did. Lets' leave it for now, see what happens...
+Plugin 'ntpeters/vim-airline-colornum'
 " }}}
 "
 " -----------------------------------------------------------------------------
@@ -139,8 +144,8 @@ let g:NERDSpaceDelims = 1   " put a space between a comment character and text
 " -----------------------------------------------------------------------------
 "  Unite does some things... or so I hear
 " --------------------------------------------------------------------------{{{
-Plugin 'Shougo/unite.vim'
 Plugin 'Shougo/vimproc.vim'
+Plugin 'Shougo/unite.vim'
 "
 " call unite#filters#matcher_default#use(['matcher_fuzzy'])
 " nnoremap <leader>r :<C-u>Unite -start-insert file_rec<CR>
@@ -235,7 +240,7 @@ let g:startify_session_persistence = 1
 " let g:startify_session_savevars = []
 " 
 " Startify start menu
-let g:startify_files_number = 8 
+let g:startify_files_number = 6 
 let g:startify_list_order = [
             \ ['   These are my recently used files'],
             \ 'files',
@@ -293,7 +298,9 @@ Plugin 'fs111/pydoc.vim'
 " For automatic maintenance of a tags file
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
-let g:easytags_file='~/.vim/tags/vimtags'  " keeping ALL the junk in one place
+" let g:easytags_file='~/.vim/tags/vimtags'  " keeping ALL the junk in one place
+let easytags_by_filetype='~/.vim/tags/'
+let g:easytags_async=1      " update in the background? Yes please!
 " tag explorer window
 Plugin 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
@@ -325,6 +332,8 @@ nmap <F8> :TagbarToggle<CR>
 "  alternative python syntax
 " --------------------------------------------------------------------------{{{
 Plugin 'hdima/python-syntax'
+:let python_highlight_all = 1
+highlight pythonDecorator cterm=italic
 " }}}
 "
 " -----------------------------------------------------------------------------
@@ -507,10 +516,11 @@ nnoremap <CR> :noh<CR><CR>
 " }}}
 "
 " Mouse mouse mouse in the house house house -------------------------------{{{
-" set mouse=a             " First, enable mouse in all modes
-set mouse+=n            " mouse in normal and visual
-set mouse+=v
-set mouse-=i            " no mouse in insert
+set mouse-=a            " First, we kill the mouse in all modes
+" set mouse=a           " swap in this line to get the mouse back
+" set mouse=n           " mouse in normal and visual
+" set mouse=v
+" set mouse-=i          " no mouse in insert
 set ttyfast             " sends more characters for faster redraws
 set ttymouse=xterm2     " sets the terminal type for sending mouse codes.
                         " 'xterm2' reports mouse position during dragging.
@@ -535,6 +545,7 @@ augroup filetype_vim
     autocmd Filetype vim    set foldminlines=1
     autocmd FileType vim    set foldmethod=marker
 augroup END
+
 " }}}
 " end of General Options                                                    }}}
 "
@@ -589,12 +600,17 @@ nnoremap <leader>] viw<esc>a]<esc>hbi[<esc>lel
 "  Abbreviations
 " --------------------------------------------------------------------------{{{
 iabbrev adn and
+iabbrev Flase False
 " }}}
 " end of remappings                                                         }}}
 
 " -----------------------------------------------------------------------------
 "  Colorschemes Config                                                      {{{
 " --------------------------------------------------------------------------{{{
+map <F9> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
 set background=dark
 " This lets vim use 256 colors. Or so some dude on the internet tells me
 " Note: these seem to break vim
@@ -652,7 +668,7 @@ colorscheme molokai
 highlight Comment   cterm=italic
 " highlight Comment   cterm=italic ctermfg=237 ctermbg=None
 " highlight Normal    cterm=None   ctermfg=255 ctermbg=Black
-" highlight Todo      cterm=bold   ctermfg=magenta ctermbg=None
+highlight Todo      cterm=bold   ctermfg=magenta ctermbg=None
 " }}}
 " end of colorschemes                                                       }}}
 "

@@ -10,6 +10,7 @@ setopt PROMPT_SUBST             # Enable... ?? Command substitution?
 # left prompt [PS1] -----------------------------------------------------------
 # original:
 # PS1="%F{57}[%f%F{magenta}%B%n%b%f %F{cyan}%2~%f%F{57}]%f%# "
+# PS1="$(virtualenv_info)%F{57}[ %f%F{magenta}%B%n%b%f %F{57}]%f%# "
 PS1="%F{57}[ %f%F{magenta}%B%n%b%f %F{57}]%f%# "
 #
 # right prompt [RPS1] --------------------------------------------------------- 

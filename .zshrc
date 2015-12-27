@@ -38,6 +38,8 @@ zmodload zsh/datetime               # need my strftime!
 #   1.  $INITIAL_ZSHRC is unset (i.e. fresh zsh)
 #   2.  the write time of a subscript is younger than the last 
 #       call to source this file
+# Hmmm... there should be a check to see if the files in ~/.shell are the RIGHT
+# files, and only load those that both exist AND whitelisted
 for fil in ~/.shell/*.zsh ; do
     if [[ -z $"INITIAL_ZSHRC" ]] \
         || [[ "$CURRENT_ZSHRC_LOADTIME" < "$(stat -f %m $fil)" ]] ;
@@ -52,3 +54,6 @@ done
 # vars for logic
 INITIAL_ZSHRC=1              # flag the first loading of this file
 CURRENT_ZSHRC_LOADTIME=$EPOCHSECONDS
+
+# Enable shell integration...
+source /Users/caseyopdahl/.iterm2_shell_integration.zsh
