@@ -94,7 +94,9 @@ Plugin 'tomasr/molokai'
 "
 " Powerline randomly breaks, airline seems to work fine, so that's what we're
 " going with!
-Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
 let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#tabline#show_buffers=0
 let g:airline#extensions#tabline#show_tabs=0
