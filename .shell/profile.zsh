@@ -5,11 +5,12 @@
 #
 #
 # here we add the dir for my own scripts
-# NOTE: we kill the test because the test in .zshrc is more general
-# if [[ -z $PROFILE_LOADED ]];
-# then
-export PATH=$PATH:/usr/self/bin
-export PATH=$PATH:/usr/self
+# http://unix.stackexchange.com/a/217626
+[[ ":$PATH:" != *":/usr/self/bin:"* ]] && PATH=$PATH:/usr/self/bin
+[[ ":$PATH:" != *":/usr/self:"* ]] && PATH=$PATH:/usr/self
+# the old way was bad:
+# export PATH=$PATH:/usr/self/bin
+# export PATH=$PATH:/usr/self
 
 # if [[ -z $PYTHONPATH ]]
 # then
@@ -20,13 +21,15 @@ export PATH=$PATH:/usr/self
 # fi
 
 # tell virtualenv to alter the prompt
-set VIRTUAL_ENV_DISABLE_PROMPT
+unset VIRTUAL_ENV_DISABLE_PROMPT
+#
+# # The following is a vestigal yabber yabber
 # # Here we make sure this script doesnt' get loaded more than once
 # export PROFILE_LOADED=1
 #
 # path for the Java parts of the Algorithms MOOC 
 # export CLASSPATH=$CLASSPATH:~/algs4/stdlib.jar:~/algs4/algs4.jar
 
-# And here we have the neovim hacks!
-export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-set NVIM_TUI_ENABLE_TRUE_COLOR
+# # And here we have the neovim hacks!
+# export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+# set NVIM_TUI_ENABLE_TRUE_COLOR

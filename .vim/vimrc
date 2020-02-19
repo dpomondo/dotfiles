@@ -1,11 +1,12 @@
-"   ____   ____  _____  __  __  _____  _  _  ____   _____ / ___
-"  (  _ \ (  _ \(  _  )(  \/  )(  _  )( \( )(  _ \ (  _  ) / __)
-"   )(_) ) )___/ )(_)(  )    (  )(_)(  )  (  )(_) ) )(_)(  \__ \
-"  (____/ (__)  (_____)(_/\/\_)(_____)(_)\_)(____/ (_____) (___/
-"     _  _  ____  __  __  ____   ___
-"    ( \/ )(_  _)(  \/  )(  _ \ / __)
-"     \  /  _)(_  )    (  )   /( (__
-"      \/  (____)(_/\/\_)(_)\_) \___)
+"  _____  ______ _______ _______ _______ _______ _____  _______ __
+" |     \|   __ \       |   |   |       |    |  |     \|       |  |.-----.
+" |  --  |    __/   -   |       |   -   |       |  --  |   -   ||_||__ --|
+" |_____/|___|  |_______|__|_|__|_______|__|____|_____/|_______|   |_____|
+"
+"  ___ ___ _______ _______ ______ ______
+" |   |   |_     _|   |   |   __ \      |
+" |   |   |_|   |_|       |      <   ---|
+"  \_____/|_______|__|_|__|___|__|______|
 "
 " Here be some things I tweaked to makes mah vim be more
 " Likes what I want and not what it is normally
@@ -68,9 +69,10 @@ let g:yankring_history_dir='$HOME/.vim/,$VIM,$HOME'
 " Plugin 'altercation/vim-colors-solarized'
 " Plugin 'jaapie/vim-colours-dusk'
 " Plugin 'nantech/jellybeans.vim'
-" Plugin 'morhetz/gruvbox'
-" Plugin 'gosukiwi/vim-atom-dark'
-" Plugin 'joshdick/onedark.vim'
+Plugin 'morhetz/gruvbox'
+Plugin 'gosukiwi/vim-atom-dark'
+Plugin 'joshdick/onedark.vim'
+" Plugin 'jscappini/material.vim'
 " Plugin 'geoffharcourt/one-dark.vim'
 " Plugin 'junegunn/seoul256.vim'
 Plugin 'tomasr/molokai'
@@ -235,14 +237,23 @@ if !isdirectory(expand('~/.vim/sessions/', 1))
 endif
 let g:startify_session_dir = '~/.vim/sessions'
 let g:startify_session_autoload = 1         " autoload `Session.vim`
-let g:startify_session_delete_buffers = 1   " 
+let g:startify_session_delete_buffers = 1   "
 let g:startify_session_persistence = 1
 " let g:startify_session_remove_lines = [ ]
 " let g:startify_session_savecmds = []
 " let g:startify_session_savevars = []
-" 
+"
 " Startify start menu
-let g:startify_files_number = 6 
+let g:startify_custom_header = [
+        \ '         __  __  ______               ',
+        \ '        /\ \/\ \/\__  _\   /`\_/`\    ',
+        \ '        \ \ \ \ \/_/\ \/  /\      \   ',
+        \ '         \ \ \ \ \ \ \ \  \ \ \__\ \  ',
+        \ '          \ \ \_/ \ \_\ \__\ \ \_/\ \ ',
+        \ '           \ `\___/ /\_____\\ \_\\ \_\',
+        \ '            `\/__/  \/_____/ \/_/ \/_/' ]
+
+let g:startify_files_number = 5
 let g:startify_list_order = [
             \ ['   These are my recently used files'],
             \ 'files',
@@ -263,7 +274,7 @@ autocmd VimEnter *
 " }}}
 "
 " -----------------------------------------------------------------------------
-" Snippets! 
+" Snippets!
 " --------------------------------------------------------------------------{{{
 " Track the engine.
 Plugin 'SirVer/ultisnips'
@@ -347,6 +358,10 @@ Plugin 'tpope/vim-fugitive'
 " -----------------------------------------------------------------------------
 " surround -- the plugin that caught the one-armed man
 " --------------------------------------------------------------------------{{{
+" help --> :h surround
+" ys
+" cs --> change surround
+" ds --> delete surround
 Plugin 'tpope/vim-surround'
 " }}}
 "
@@ -356,8 +371,12 @@ Plugin 'tpope/vim-surround'
 Plugin 'nvie/vim-flake8'    " <F7> invokes flake8 checking
 " }}}
 "
+" -----------------------------------------------------------------------------
+"
 " ALL plugins must be above this line -----------------------------------------
 " Here we make the vundle-ing happen: --------------------------------------{{{
+"
+" -----------------------------------------------------------------------------
 call vundle#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
@@ -609,6 +628,10 @@ iabbrev Flase False
 " -----------------------------------------------------------------------------
 "  Colorschemes Config                                                      {{{
 " --------------------------------------------------------------------------{{{
+
+" the following outputs the highlight gorup of the item currently under the
+" cursor. It is for twaeking syntax highlighting, if you are into that sort of
+" thing. I can't remember where I stole it.
 map <F9> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
@@ -656,7 +679,7 @@ set background=dark
 " }}}
 "
 " -----------------------------------------------------------------------------
-" Individual Themes 
+" Individual Themes
 " --------------------------------------------------------------------------{{{
 " colorscheme atom-dark-256
 " colorscheme jellybeans

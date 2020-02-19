@@ -16,4 +16,5 @@ setopt HIST_NO_FUNCTIONS
 HISTFILE=~/.shell/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
-HISTCHARS='@^#'                 # let bang be bang
+# sooo tired of escaping addresses... why was this a good idea?
+# HISTCHARS='@^#'                 # let bang be bang
